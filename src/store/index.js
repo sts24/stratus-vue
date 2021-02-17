@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     location: {},
     coords: "",
+    current: {},
     hourly: {},
     forecast: {},
     alerts: {},
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     setCoords(state, coords){
       state.coords = coords
+    },
+    setCurrent(state, data){
+      state.current = data
     },
     setHourly(state, data) {
       state.hourly = data
@@ -73,12 +77,21 @@ export default new Vuex.Store({
 
       }).then(() => {
 
-        // get hourly forecast data
+        // get hourly and current data
         return GetHourly(store.state.nwsAPI.hourly).then(res => {
+
+          const hourlyData = res.periods;
+          const currentData = hourlyData.shift();
+
+          store.commit('setCurrent', {
+            'updated': res.updateTime,
+            'data': currentData
+          })
+
           store.commit('setHourly', {
             'updated': res.updateTime,
-            'data': res.periods
-          });
+            'data': hourlyData
+          })
         })
 
       }).then(() => {
@@ -88,7 +101,7 @@ export default new Vuex.Store({
           store.commit('setAlerts', {
             'updated': res.updated,
             'data': res.features
-          });
+          })
         })
 
       });

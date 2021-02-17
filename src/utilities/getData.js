@@ -93,3 +93,19 @@ export const GetAlerts = async(apiEndpoint) => {
 	})
 
 }
+
+
+
+// export const GetCurrent = async() => {
+
+// 	return new Promise((resolve, reject) => {
+// 		axios.get('https://api.weather.gov/stations/{stationId}/observations/latest')
+// 			.then(response => {
+// 				resolve(response.data);
+// 			})
+// 			.catch(() => {
+// 				reject("Area alerts could not be reached.");
+// 			});
+// 	})
+
+// }
