@@ -1,10 +1,22 @@
 <template>
-  <div></div>
+	<div>
+		<ul v-if="hourly.data">
+			<li v-for="h in hourly.data" :key="h.startTime">
+				{{ h.shortForecast }}
+			</li>
+		</ul>
+	</div>
 </template>
 
 <script>
-export default {
 
+import { mapState } from 'vuex'
+
+export default {
+	name: 'Hourly',
+	computed: mapState([
+		'hourly',
+	])
 }
 </script>
 
