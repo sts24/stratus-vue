@@ -7,11 +7,18 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  methods: {
+    ...mapActions([ 'getWeatherData' ])
+  },
+  mounted(){
+    this.getWeatherData();
   }
 }
 </script>
