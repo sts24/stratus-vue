@@ -6,17 +6,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    location: {},
     coords: "",
     hourly: {},
-    weather: {},
     forecast: {},
     alerts: {},
-    hasLocation: false,
-    message: "",
     nwsAPI: {}
   },
   mutations: {
-    setLocation(state, coords){
+    setLocation(state, data){
+      state.location = data
+    },
+    setCoords(state, coords){
       state.coords = coords
     },
     setHourly(state, data) {
@@ -38,7 +39,7 @@ export default new Vuex.Store({
       
       // use browser geolocation to kick things off
       GetLocation().then(result => {
-        store.commit('setLocation', result);
+        store.commit('setCoords', result);
 
         return result
       }).then(coords => {
@@ -46,32 +47,48 @@ export default new Vuex.Store({
         // go get the API endpoints from the NWS
 
         return GetNWSData(coords).then(res => {
+
+          store.commit('setLocation', {
+            city: res.relativeLocation.properties.city,
+            state: res.relativeLocation.properties.state
+          })
+
           store.commit('setAPIEndpoints', {
             forecast: res.forecast,
             hourly: res.forecastHourly,
             forecastZone: res.forecastZone
           })
+
         })
 
       }).then(() => {
 
         // get daily forecast data
         return GetForecast(store.state.nwsAPI.forecast).then(res => {
-          store.commit('setForecast', res);
+          store.commit('setForecast', {
+            'updated': res.updateTime,
+            'data': res.periods
+          });
         });
 
       }).then(() => {
 
         // get hourly forecast data
         return GetHourly(store.state.nwsAPI.hourly).then(res => {
-          store.commit('setHourly', res);
+          store.commit('setHourly', {
+            'updated': res.updateTime,
+            'data': res.periods
+          });
         })
 
       }).then(() => {
 
         // get weather alerts data
         return GetAlerts(store.state.nwsAPI.forecastZone).then(res => {
-          store.commit('setAlerts', res);
+          store.commit('setAlerts', {
+            'updated': res.updated,
+            'data': res.features
+          });
         })
 
       });

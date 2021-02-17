@@ -1,18 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Heading />
+    <main className="data-grid">
+      <Current />
+      <Hourly />
+      <Forecast />
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Heading from './components/Heading.vue'
+import Current from './components/Current.vue'
+import Hourly from './components/Hourly.vue'
+import Forecast from './components/Forecast.vue'
+
 import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Heading,
+    Current,
+    Hourly,
+    Forecast
   },
   methods: {
     ...mapActions([ 'getWeatherData' ])

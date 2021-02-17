@@ -3,7 +3,7 @@ import axios from "axios";
 export const GetLocation = async () => {
 	return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((location) => {
-  
+
 		let lat = location.coords.latitude.toFixed(4);
 		let long = location.coords.longitude.toFixed(4);
 
