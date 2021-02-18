@@ -2,9 +2,9 @@
 	<section class="panel hourly-section">
 		<header class="panel-header">Hourly Forecast</header>
 
-		<ForecastChart :chart-data="chartData" :options="options" />
+		<ForecastChart :chart-data="chartData" :options="options" :chart-id="hourly-forcast-chart" :height="300"  />
 
-		<ul v-if="hourly.data">
+		<!-- <ul v-if="hourly.data">
 			<li v-for="h in hourly.data" :key="h.startTime">
 				
 				<time>{{ formatTime(h.startTime) }}</time>
@@ -15,7 +15,7 @@
 				<div class="hourly-wind">{{ h.windSpeed }} {{ h.windDirection }}</div>
 
 			</li>
-		</ul>
+		</ul> -->
 	</section>
 </template>
 
@@ -29,18 +29,36 @@ export default {
 	name: 'Hourly',
 	data(){
 		return {
-			chartData: null,
+			chartData: {},
 			options: {
 				responsive: true,
 				maintainAspectRatio: false,
-				aspectRatio: 10,
+				aspectRatio: 12,
 				legend: {
 					display: false
 				},
+				layout: {
+					padding: {
+						left: 0,
+						right: 0,
+						top: 20,
+						bottom: 20
+					}
+				},
 				scales: {
 					yAxes: [{
+						gridLines: {
+							drawTicks: false,
+							display: false
+						},
 						ticks: {
 							display: false
+						}
+					}],
+					xAxes: [{
+						gridLines: {
+							display: true,
+							drawTicks: true
 						}
 					}]
 				}
@@ -68,11 +86,11 @@ export default {
 		setupData(newData){
 
 			let chartLabels = [];
-			let chartArray = [];
+			let temperatureArray = [];
 		
 			for(const i in newData){
 				chartLabels.push(this.formatTime(newData[i].startTime));
-				chartArray.push(newData[i].temperature);
+				temperatureArray.push(newData[i].temperature);
 			}
 
 			this.chartData = {
@@ -82,8 +100,8 @@ export default {
 						label: 'Temperature',
 						borderColor: '#df552a',
 						fill: false,
-						borderWidth: '12',
-						data: chartArray
+						borderWidth: '6',
+						data: temperatureArray
 					}
 				]
 			}

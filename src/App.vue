@@ -57,8 +57,8 @@ body {
 
 
 .forecast-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 100%; */
 }
 
 
