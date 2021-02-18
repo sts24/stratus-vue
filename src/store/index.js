@@ -80,7 +80,7 @@ export default new Vuex.Store({
         // get hourly and current data
         return GetHourly(store.state.nwsAPI.hourly).then(res => {
 
-          const hourlyData = res.periods;
+          const hourlyData = res.periods.splice(0,12);
           const currentData = hourlyData.shift();
 
           store.commit('setCurrent', {
