@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <Heading />
-    <main className="data-grid">
+    <header class="stratus-masthead">
+      <Heading />
       <Current />
+    </header>
+    <main class="forecast-grid">
       <Hourly />
       <Forecast />
     </main>
@@ -35,5 +37,37 @@ export default {
 </script>
 
 <style>
+
+:root {
+  --body-font: sans-serif;
+  --heading-font: Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  padding: 2rem;
+  margin: 0;
+  font-family: var(--body-font);
+  line-height: 1em;
+}
+
+
+.stratus-masthead {
+  margin: 0 auto 4rem 0;
+}
+
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+.panel-header {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 0 2rem 0;
+}
+
 
 </style>

@@ -1,16 +1,16 @@
 <template>
 	<section class="panel hourly-section">
-		<header>Hourly Forecast</header>
+		<header class="panel-header">Hourly Forecast</header>
 
 		<ul v-if="hourly.data">
 			<li v-for="h in hourly.data" :key="h.startTime">
 				
-				<time>{{ h.startTime }}</time>
-				<div className="hourly-desc">
+				<time>{{ formatTime(h.startTime) }}</time>
+				<div class="hourly-desc">
 					{{ h.shortForecast }}
 				</div>
-				<div className="hourly-temp">{{ h.temperature }}&#8457;</div>
-				<div className="hourly-wind">{{ h.windSpeed }} {{ h.windDirection }}</div>
+				<div class="hourly-temp">{{ h.temperature }}&#8457;</div>
+				<div class="hourly-wind">{{ h.windSpeed }} {{ h.windDirection }}</div>
 
 			</li>
 		</ul>
@@ -25,7 +25,16 @@ export default {
 	name: 'Hourly',
 	computed: mapState([
 		'hourly'
-	])
+	]),
+	methods: {
+		formatTime(data) {
+			let newDate = new Date(data);
+
+			return newDate.toLocaleTimeString([], {
+				hour: 'numeric'
+			});
+		}
+	}
 }
 </script>
 

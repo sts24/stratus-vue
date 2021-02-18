@@ -5,16 +5,16 @@
 		<ul v-if="forecast.data">
 			<li v-for="f in forecast.data" :key="f.startTime">
 
-				<div className="forecast-day">{{ f.name }}</div>
-				<div className="forecast-desc">
+				<div class="forecast-day">{{ f.name }}</div>
+				<div class="forecast-desc">
 					{{ f.shortForecast }}
 				</div>
-				<div className="forecast-temp">{{ f.temperature }}&#8457;</div>
-				<button className="forecast-extra-toggle">More Info</button>
+				<div class="forecast-temp">{{ f.temperature }}&#8457;</div>
+				<button class="forecast-extra-toggle">More Info</button>
 
-				<aside className="forecast-extra">
-					<div className="forecast-wind"><strong>Wind</strong> {{ f.windSpeed }} {{ f.windDirection }}</div>
-					<div className="forecast-full-desc"><strong>Forecast Detail</strong> {{ f.detailedForecast }}</div>
+				<aside class="forecast-extra">
+					<div class="forecast-wind"><strong>Wind</strong> {{ f.windSpeed }} {{ f.windDirection }}</div>
+					<div class="forecast-full-desc"><strong>Forecast Detail</strong> {{ f.detailedForecast }}</div>
 				</aside>
 
 			</li>

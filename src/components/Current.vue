@@ -1,12 +1,8 @@
 <template>
   <section class="panel current-section" >
-	<header class="panel-header">Current Conditions</header>
 
 	<div class="current-conditions" v-if="current.data">
-		<div className="forecast-day">{{ current.data.name }}</div>
-		<div className="forecast-desc">{{ current.data.shortForecast }}</div>
-		<div className="forecast-temp">{{ current.data.temperature }}&#8457;</div>
-		<div className="forecast-wind">{{ current.data.windSpeed }} {{ current.data.windDirection}}</div>
+		Currently {{ current.data.shortForecast }} at {{ current.data.temperature }}&#8457; with winds at {{ current.data.windSpeed }} {{ current.data.windDirection}}
 	</div>
 
   </section>
@@ -24,5 +20,8 @@ export default {
 </script>
 
 <style>
-
+	.current-conditions {
+		font-family: var(--heading-font);
+		font-size: 1.5rem;
+	}
 </style>
