@@ -67,18 +67,18 @@ export default new Vuex.Store({
 
       }).then(() => {
 
+        
         // get daily forecast data
-        return GetForecast(store.state.nwsAPI.forecast).then(res => {
+        GetForecast(store.state.nwsAPI.forecast).then(res => {
           store.commit('setForecast', {
             'updated': res.updateTime,
             'data': res.periods
           });
         });
 
-      }).then(() => {
 
         // get hourly and current data
-        return GetHourly(store.state.nwsAPI.hourly).then(res => {
+        GetHourly(store.state.nwsAPI.hourly).then(res => {
 
           const hourlyData = res.periods.splice(0,12);
           const currentData = hourlyData.shift();
@@ -94,15 +94,15 @@ export default new Vuex.Store({
           })
         })
 
-      }).then(() => {
 
         // get weather alerts data
-        return GetAlerts(store.state.nwsAPI.forecastZone).then(res => {
+        GetAlerts(store.state.nwsAPI.forecastZone).then(res => {
           store.commit('setAlerts', {
             'updated': res.updated,
             'data': res.features
           })
         })
+
 
       });
 
